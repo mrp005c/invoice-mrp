@@ -210,14 +210,14 @@ const DashNav = () => {
             </div>
             <div className="buttons flex">
               <button
-                className="sec-btn bg-violet-200 hover:bg-violet-400 text-black w-fit px-10 m-auto ring-2 ring-black"
+                className="sec-btn bg-violet-200 hover:bg-violet-400  active:bg-violet-600 text-black w-fit px-10 m-auto ring-2 ring-black"
                 type="submit"
               >
                 Submit
               </button>
               <button
                 onClick={() => setDropdown(false)}
-                className="sec-btn ring-2 ring-black bg-gray-200 text-black hover:bg-red-600 w-fit px-10 m-auto"
+                className="sec-btn ring-2 ring-black bg-gray-200 text-black hover:bg-red-600  active:bg-red-800 w-fit px-10 m-auto"
                 type="button"
               >
                 Cancel
@@ -257,7 +257,7 @@ const DashNav = () => {
               <button className="prim-btn" onClick={() => signOut()}>
                 Log Out
               </button>
-              <button className="prim-btn bg-inherit hover:bg-white text-[#cb1414d5]">
+              <button className="prim-btn bg-inherit hover:bg-red-400 active:bg-red-800 text-[#cb1414d5]">
                 Delete Account
               </button>
             </div>

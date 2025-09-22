@@ -42,26 +42,31 @@ const Footer = () => {
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-between flex-wrap md:text-left text-center order-first">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3"></h2>
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">Quick Access Links</h2>
             <nav className="list-none mb-10">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-800">
-                  First Link
+                <Link href="/" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-800">
-                  Second Link
+                <Link href="/about" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                  About
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-800">
-                  Third Link
+                <Link href="/contact" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                 Contact
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-800">
-                  Fourth Link
+                <Link href="/#invoice" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                 Get Started
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                Profile
                 </Link>
               </li>
             </nav>
@@ -85,13 +90,14 @@ const Footer = () => {
                   type="email"
                   id="femail"
                   name="subscribe"
+                  placeholder="Enter Email"
                   required
-                  className="w-full bg-gray-100 focus:bg-gray-50 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full input-style bg-gray-100 focus:bg-gray-50 text-base outline-none text-gray-700 py-1 px-3 leading-8 placeholder:text-gray-500"
                 />
               </div>
               <button
                 type="submit"
-                className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 active:bg-indigo-800 rounded"
               >
                 Button
               </button>

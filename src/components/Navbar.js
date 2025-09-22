@@ -71,15 +71,15 @@ const Navbar = () => {
         <div className="buttons flex-between gap-2 md:gap-3 md:text-lg">
           {!session ? (
             <>
-              <Link href="/login" className="pri-btn md:sec-btn bg-blue-600 hover:bg-blue-800">
+              <Link href="/login" className="pri-btn md:sec-btn bg-blue-600 hover:bg-blue-800 active:bg-sec-black">
                 Log In
               </Link>
-              <Link href="/register" className="pri-btn md:sec-btn bg-sec-gray hover:bg-sec-black">
+              <Link href="/register" className="pri-btn md:sec-btn bg-sec-gray hover:bg-sec-black active:bg-pri-black">
                 Sign Up
               </Link>
             </>
           ) : (
-            <Link href="/dashboard" className="pri-btn md:sec-btn bg-purple-400 hover:bg-purple-500">
+            <Link href="/dashboard" className="pri-btn md:sec-btn bg-purple-400 hover:bg-purple-500 active:bg-purple-800">
               Profile
             </Link>
           )}

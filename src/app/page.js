@@ -107,13 +107,13 @@ export default function Home() {
             </div>
             <div className="buttons text-lg md:text-xl flex-center gap-3 flex-wrap">
               <Link
-                className="prim-btn w-fit bg-blue-600 hover:bg-violet-400 transition-all"
+                className="prim-btn w-fit bg-blue-600  hover:bg-violet-400 active:bg-violet-900 transition-all"
                 href="/#invoices"
               >
                 Get Started
               </Link>
               <Link
-                className="prim-btn w-fit bg-blue-600 hover:bg-violet-400 transition-all"
+                className="prim-btn w-fit bg-blue-600 hover:bg-violet-400 active:bg-violet-900 transition-all"
                 href="/about"
               >
                 Know More
@@ -248,7 +248,7 @@ export default function Home() {
                         <tr key={index}>
                           <td>
                             <input
-                              className="w-full pl-2  bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2  bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
                               type="text"
                               name="product"
                               id="product"
@@ -262,7 +262,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12  outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2 bg-amber-50 h-12  outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
                               type="number"
                               name="quantity"
                               id="quantity"
@@ -278,7 +278,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
                               type="number"
                               min={1}
                               step={1}
@@ -297,7 +297,7 @@ export default function Home() {
                             />
                           </td>
                           <td>
-                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
                               {(products[index].quantity || 0) *
                                 (products[index].amount || 0)}
                             </p>
@@ -305,7 +305,8 @@ export default function Home() {
                           <td>
                             <button
                               type="button"
-                              className={`w-full  opacity-0 hover:opacity-100 p-3 hover:visible h-full ${
+                              disabled={products.length === 0}
+                              className={`w-full  opacity-0 hover:opacity-100 p-3 hover:visible hover:bg-red-400 active:bg-red-800 h-full ${
                                 products.length <= 1 ? "hidden" : ""
                               }`}
                               onClick={() =>
@@ -369,7 +370,7 @@ export default function Home() {
                       </p>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
                         ৳
                         {products
                           .reduce(
@@ -406,7 +407,7 @@ export default function Home() {
                       </p>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
                         ৳
                         {(
                           products.reduce(

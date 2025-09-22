@@ -460,7 +460,7 @@ const MPage = () => {
                         <tr key={index}>
                           <td>
                             <input
-                              className="w-full pl-2  bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2  bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="text"
                               name="product"
                               id="product"
@@ -474,7 +474,7 @@ const MPage = () => {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12  outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2 bg-amber-50 h-12  outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="number"
                               name="quantity"
                               id="quantity"
@@ -490,7 +490,7 @@ const MPage = () => {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300"
+                              className="w-full pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="number"
                               min={1}
                               step={1}
@@ -509,7 +509,7 @@ const MPage = () => {
                             />
                           </td>
                           <td>
-                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                               {(products[index].quantity || 0) *
                                 (products[index].amount || 0)}
                             </p>
@@ -581,7 +581,7 @@ const MPage = () => {
                       </p>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                         ৳
                         {products
                           .reduce(
@@ -618,7 +618,7 @@ const MPage = () => {
                       </p>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:ring-1 ring-green-300">
+                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                         ৳
                         {(
                           products.reduce(
@@ -682,21 +682,21 @@ const MPage = () => {
                       <button
                         type="button"
                         onClick={() => handleDownload(item._id, item)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all"
+                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
                       >
                         <GrDocumentDownload />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleEditInvoice(item._id, item)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all"
+                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
                       >
                         <RiEdit2Line />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDeleteInvoice(item.invoiceId)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all"
+                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
                       >
                         <RiDeleteBin6Fill />
                       </button>

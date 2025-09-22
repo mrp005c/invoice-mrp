@@ -121,7 +121,7 @@ const page = () => {
                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></textarea>
             </div>
-            <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600  active:bg-indigo-800 rounded text-lg">
               Button
             </button>
             <p className="text-xs text-gray-500 mt-3">
@@ -142,13 +142,13 @@ const page = () => {
               Invoice #{(1).toString().padStart(4, "0")}
             </span>
             <span className="flex-center flex-wrap gap-3 text-3xl">
-              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all">
+              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all">
                 <FaDownload />
               </button>
-              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all">
+              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all">
                 <RiEdit2Line />
               </button>
-              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100 transition-all">
+              <button className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all">
                 <RiDeleteBin6Fill />
               </button>
             </span>
