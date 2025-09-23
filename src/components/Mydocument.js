@@ -83,7 +83,7 @@ const Mydocument = ({ item }) => {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Invoice</Text>
-          <Text style={styles.subtitle}>Invoice ID: {item.invoiceId}</Text>
+          <Text style={styles.subtitle}>Invoice ID: {item._id? item._id : item.invoiceId}</Text>
         </View>
 
         {/* Customer Info */}
@@ -128,19 +128,30 @@ const Mydocument = ({ item }) => {
             );
           })}
         </View>
-        <View style={styles.section}>
-          <Text style={styles.label}> Discount 10% </Text>
-          <Text>
-            ({totalAmount} - {(totalAmount * 10) / 100} )
-          </Text>
-        </View>
+
         {/* Total */}
         <View style={styles.total}>
           <Text style={styles.totalText}>
-            Total: = {(totalAmount * 90) / 100} BDT
+            Total: = {totalAmount}
           </Text>
         </View>
-
+        {/* diccount */}
+        <View style={styles.total}>
+          <Text style={styles.totalText}>
+           Discount: =  ({(totalAmount * 10) / 100})
+          </Text>
+        </View>
+        {/* line */}
+        <View style={styles.total}>
+          <Text style={styles.totalText}>
+           {"-----------------------------------------"}
+          </Text>
+        </View>
+        <View style={styles.total}>
+          <Text style={styles.totalText}>
+            Total Payble: = {(totalAmount * 90) / 100} BDT
+          </Text>
+        </View>
         {/* Footer */}
         <Text style={styles.footer}>
           Thank you for your business! This is a system generated invoice.

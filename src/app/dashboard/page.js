@@ -517,7 +517,7 @@ const MPage = () => {
                           <td>
                             <button
                               type="button"
-                              className={`w-full  opacity-0 hover:opacity-100 p-3 hover:visible h-full ${
+                              className={`w-full opacity-20 hover:opacity-100 active:opacity-100 p-3 h-full ${
                                 products.length <= 1 ? "hidden" : ""
                               }`}
                               onClick={() =>
@@ -632,7 +632,7 @@ const MPage = () => {
                     </td>
                     <td className="font-bold text-blue-700">
                       <input
-                        className="accent-orange-400"
+                        className="accent-orange-400 cursor-pointer"
                         checked={formInfo.paid || false}
                         onChange={(e) =>
                           setFormInfo({ ...formInfo, paid: e.target.checked })
@@ -641,7 +641,8 @@ const MPage = () => {
                         name="check"
                         id="check"
                       />
-                      Paid
+                      <label htmlFor="check" className="cursor-pointer">Paid</label>
+                      
                     </td>
                   </tr>
                 </tfoot>
@@ -759,7 +760,7 @@ const MPage = () => {
 
                     <span className="font-semibold">
                       <span>Total Price : </span>
-                      <span className="bg-gray-100 px-2 py-1 rounded-md ring-2 ring-gray-700">
+                      <span className={`${item.paid ?"bg-gray-100 ": "bg-red-500 text-white"} px-2 py-1 rounded-md ring-2 ring-gray-700`}>
                         {item.products.length > 0 &&
                           (
                             item.products.reduce(
@@ -767,7 +768,7 @@ const MPage = () => {
                                 sum + Number(p.quantity) * Number(p.amount),
                               0
                             ) *
-                            (85 / 100)
+                            (90 / 100)
                           ).toFixed(2)}
                         /=
                       </span>
