@@ -244,7 +244,7 @@ const MPage = () => {
   if (session) {
     return (
       <>
-        <ToastContainer />
+        <ToastContainer className="fixed z-50 "/>
         <div className="text-lg flex flex-col sm:flex-row  container mx-auto gap-4 bg-gray-200 my-4 p-1 md:p-3 rounded-2xl">
           <div className="left-side w-full sm:max-w-[200px] p-3 bg-gray-300 flex-center justify-start flex-col gap-3 rounded-2xl">
             <button

@@ -85,7 +85,7 @@ const DashNav = () => {
   if (status === "authenticated") {
     return (
       <>
-        <ToastContainer />
+      <ToastContainer className="fixed z-50"/>
         <Modal
           isOpen={dropdown}
           onClose={() => {

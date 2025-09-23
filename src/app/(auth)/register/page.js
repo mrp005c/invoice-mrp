@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
@@ -6,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
-  const [showPass, setShowPass] = useState({pass: false, confirm:false})
+  const [showPass, setShowPass] = useState({ pass: false, confirm: false });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +55,7 @@ const Page = () => {
 
   return (
     <div className="  pt-16">
-      <ToastContainer />
+      <ToastContainer className="fixed z-50 "/>
       <form
         className="flex flex-col max-w-[600px] mx-auto gap-4 rounded-2xl p-2 lg:p-4 md:p-3 bg-gray-100 "
         onSubmit={handleSubmit}
@@ -147,31 +148,56 @@ const Page = () => {
             <div className="flex-center w-full relative">
               <input
                 className="input-style w-full "
-                type={showPass.pass? "text":"password"}
+                type={showPass.pass ? "text" : "password"}
                 name="password"
                 id="password"
                 placeholder="Enter Password"
                 required
               />
-              <button onClick={()=> setShowPass({...showPass, pass:!showPass.pass })} className="absolute right-2 text-xl h-full" type="button">{showPass.pass?<FaEye/> : <FaEyeSlash/>}</button>
+              <button
+                onClick={() =>
+                  setShowPass({ ...showPass, pass: !showPass.pass })
+                }
+                className="absolute right-2 text-xl h-full"
+                type="button"
+              >
+                {showPass.pass ? <FaEye /> : <FaEyeSlash />}
+              </button>
             </div>
             <div className="flex-center w-full relative">
               <input
                 className="input-style w-full "
-               type={showPass.confirm? "text":"password"}
+                type={showPass.confirm ? "text" : "password"}
                 name="confirm_password"
                 id="confirm_password"
                 placeholder="Confirm Password"
                 required
               />
-              <button onClick={()=> setShowPass({...showPass, confirm:!showPass.confirm })} className="absolute right-2 text-xl h-full" type="button">{showPass.confirm?<FaEye/> : <FaEyeSlash/>}</button>
+              <button
+                onClick={() =>
+                  setShowPass({ ...showPass, confirm: !showPass.confirm })
+                }
+                className="absolute right-2 text-xl h-full"
+                type="button"
+              >
+                {showPass.confirm ? <FaEye /> : <FaEyeSlash />}
+              </button>
             </div>
           </div>
         </div>
         <button className="sec-btn w-fit px-10 m-auto" type="submit">
           Sign Up
         </button>
+      <div className="already">
+        <span>
+          Already have an account?{" "}
+          <Link href="/login" className="link text-blue-600">
+            Log In
+          </Link>
+        </span>
+      </div>
       </form>
+      {/* if already have an account */}
     </div>
   );
 };

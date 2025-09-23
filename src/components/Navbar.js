@@ -43,7 +43,7 @@ const Navbar = () => {
   return (
     <>
     <header
-      className={`shadow-md transition-transform duration-400 z-50 ${
+      className={`shadow-md transition-transform duration-400 z-40 ${
         show ? "translate-y-0" : "-translate-y-[100%]"
       } flex-center h-16 w-full px-1 md:px-3 bg-sec-white fixed top-0`}
     >

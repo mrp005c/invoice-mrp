@@ -45,7 +45,7 @@ export default function Component() {
 
   return (
     <div className="min-h-[calc(100vh-200px)]  pt-16">
-      <ToastContainer />
+     <ToastContainer className="fixed z-50 "/>
       <div className="flex flex-col max-w-[480px] py-8  mx-auto gap-4 p-3 bg-gray-200 rounded-2xl">
         <h1 className="flex-center text-3xl font-bold text-shadow-lg text-white text-shadow-blue-600">
           Login To Start

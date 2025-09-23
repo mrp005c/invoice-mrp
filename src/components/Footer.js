@@ -4,7 +4,7 @@ import { FaFileInvoiceDollar } from "react-icons/fa6";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-const Footer = () => {
+const CFooter = () => {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -36,37 +36,55 @@ const Footer = () => {
       console.log({ "Error Occured": error });
     }
   };
+
   return (
     <footer className="text-gray-600 bg-sec-white body-font relative z-40">
-      <ToastContainer />
+      <ToastContainer className="fixed z-50 mt-16 " />
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-between flex-wrap md:text-left text-center order-first">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">Quick Access Links</h2>
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+              Quick Access Links
+            </h2>
             <nav className="list-none mb-10">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                <Link
+                  href="/"
+                  className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
+                <Link
+                  href="/about"
+                  className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200"
+                >
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
-                 Contact
+                <Link
+                  href="/contact"
+                  className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200"
+                >
+                  Contact
                 </Link>
               </li>
               <li>
-                <Link href="/#invoice" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
-                 Get Started
+                <Link
+                  href="/#invoice"
+                  className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200"
+                >
+                  Get Started
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200">
-                Profile
+                <Link
+                  href="/dashboard"
+                  className="text-gray-600 hover:text-gray-800 px-2 py-1 rounded-lg hover:font-semibold active:bg-violet-400 hover:bg-violet-200"
+                >
+                  Profile
                 </Link>
               </li>
             </nav>
@@ -193,4 +211,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default CFooter;

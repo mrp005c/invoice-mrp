@@ -121,15 +121,16 @@ html {
 body {
   background: var(--pri-white);
   color: var(--pri-black);
-  /* font-family: Arial, Helvetica, sans-serif; */
-  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: var(--font-poppins), Arial, Helvetica, sans-serif; */
 }
 
 button {
   cursor: pointer;
 }
 
-th, td {
+th,
+td {
   border: 1px solid black;
 }
 
@@ -146,31 +147,31 @@ th, td {
 }
 
 @utility pri-btn {
-  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black active:bg-black text-pri-white  font-semibold rounded-full transition-all ;
+  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black active:bg-black text-pri-white  font-semibold rounded-full transition-all;
 }
 
 @utility prim-btn {
-  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black  active:bg-black text-pri-white  font-semibold rounded-lg transition-all ;
+  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black  active:bg-black text-pri-white  font-semibold rounded-lg transition-all;
 }
 
 @utility sec-btn {
-  @apply flex-center box-border px-5 py-3 bg-pri-blue hover:bg-sec-blue  active:bg-black text-pri-white  font-semibold rounded-full transition-all ;
+  @apply flex-center box-border px-5 py-3 bg-pri-blue hover:bg-sec-blue  active:bg-black text-pri-white  font-semibold rounded-full transition-all;
 }
 
 @utility nav-link {
-  @apply flex-center box-border hover:bg-pri-white  active:bg-gray-400 p-1 font-semibold rounded-lg transition-all ;
+  @apply flex-center box-border hover:bg-pri-white  active:bg-gray-400 p-1 font-semibold rounded-lg transition-all;
 }
 
 @utility input-style {
-  @apply flex justify-start  box-border px-2 py-1 border  rounded-sm transition-all w-full lg:w-1/2 bg-slate-100 focus:bg-white focus:ring-2 ring-gray-500 ;
+  @apply flex justify-start  box-border px-2 py-1 border  rounded-sm transition-all w-full lg:w-1/2 bg-slate-100 focus:bg-white focus:ring-2 ring-gray-500;
 }
 
 @utility userinfo-key {
-  @apply  box-border px-2 py-1 w-[130px]  rounded-sm  ;
+  @apply box-border px-2 py-1 w-[130px]  rounded-sm;
 }
 
 @utility userinfo-item {
-  @apply flex box-border pl-2 py-1 border w-[300px] flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap rounded-sm transition-all bg-sec-white ;
+  @apply flex box-border pl-2 py-1 border w-[300px] flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap rounded-sm transition-all bg-sec-white;
 }
 
 .dark {
