@@ -1,22 +1,24 @@
 "use client";
 import Image from "next/image";
+import Loading from "@/components/Loading";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
-import {  FaGithub, FaGoogle } from "react-icons/fa6";
+import { FaGithub, FaGoogle } from "react-icons/fa6";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 
 export default function Component() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [showPass, setShowPass] = useState({pass: false})
-
+  const [showPass, setShowPass] = useState({ pass: false });
+  const [isLoading, setIsLoading] = useState(false);
   // Handle Login button
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     const formData = new FormData(e.target);
     const email = formData.get("email");
     const password = formData.get("password");
@@ -35,6 +37,7 @@ export default function Component() {
     } else {
       toast.error("Username or Password Incorrect! \nPlease Try Again");
     }
+    setIsLoading(false)
   };
 
   useEffect(() => {
@@ -45,7 +48,8 @@ export default function Component() {
 
   return (
     <div className="min-h-[calc(100vh-200px)]  pt-16">
-     <ToastContainer className="fixed z-50 "/>
+      <Loading yes={isLoading} />
+      <ToastContainer className="fixed z-50 " />
       <div className="flex flex-col max-w-[480px] py-8  mx-auto gap-4 p-3 bg-gray-200 rounded-2xl">
         <h1 className="flex-center text-3xl font-bold text-shadow-lg text-white text-shadow-blue-600">
           Login To Start

@@ -1,14 +1,18 @@
 "use client";
+import Loading from "@/components/Loading";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
   const [showPass, setShowPass] = useState({ pass: false, confirm: false });
-
+  const [isLoading, setIsLoading] = useState(false);
+const {data: session }= useSession()
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -16,6 +20,7 @@ const Page = () => {
       toast.error("Password Didn't match");
       return;
     }
+    setIsLoading(true);
     // e.target.reset()
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -51,11 +56,20 @@ const Page = () => {
       toast.error(error.message);
       console.log({ "Error Occured": error });
     }
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+  if (session) {
+    router.push("/")
+  }
+  })
+  
 
   return (
     <div className="  pt-16">
-      <ToastContainer className="fixed z-50 "/>
+      <ToastContainer className="fixed z-50 " />
+      <Loading yes={isLoading} />
       <form
         className="flex flex-col max-w-[600px] mx-auto gap-4 rounded-2xl p-2 lg:p-4 md:p-3 bg-gray-100 "
         onSubmit={handleSubmit}
@@ -188,14 +202,43 @@ const Page = () => {
         <button className="sec-btn w-fit px-10 m-auto" type="submit">
           Sign Up
         </button>
-      <div className="already">
-        <span>
-          Already have an account?{" "}
-          <Link href="/login" className="link text-blue-600">
-            Log In
-          </Link>
-        </span>
-      </div>
+        <div className="already">
+          <span>Continue With</span>
+          <div className="flex-between flex-wrap">
+            <button
+              type="button"
+              className="flex-center font-bold gap-3 pri-btn"
+              onClick={() => signIn("github")}
+            >
+              <FaGithub className="text-4xl " />{" "}
+              <span className="sm:flex hidden">GitHub</span>
+            </button>
+            <button
+              type="button"
+              className="flex-center font-bold gap-3 pri-btn"
+              onClick={() => signIn("google")}
+            >
+              <FaGoogle className="text-4xl " />{" "}
+              <span className="sm:flex hidden">Google</span>
+            </button>
+            <button
+              type="button"
+              className="flex-center font-bold gap-3 pri-btn"
+              onClick={() => signIn("facebook")}
+            >
+              <FaFacebook className="text-4xl " />{" "}
+              <span className="sm:flex hidden">Facebook</span>
+            </button>
+          </div>
+        </div>
+        <div className="already">
+          <span>
+            Already have an account?{" "}
+            <Link href="/login" className="link text-blue-600">
+              Log In
+            </Link>
+          </span>
+        </div>
       </form>
       {/* if already have an account */}
     </div>

@@ -83,7 +83,9 @@ const Mydocument = ({ item }) => {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Invoice</Text>
-          <Text style={styles.subtitle}>Invoice ID: {item._id? item._id : item.invoiceId}</Text>
+          <Text style={styles.subtitle}>
+            Invoice ID: {item._id ? item._id : item.invoiceId}
+          </Text>
         </View>
 
         {/* Customer Info */}
@@ -105,6 +107,10 @@ const Mydocument = ({ item }) => {
             <Text style={styles.label}>Status:</Text>
             <Text>{item.paid ? "Paid" : "Unpaid"}</Text>
           </View>
+        {item.isdiscount && <View style={styles.row}>
+          <Text style={styles.label}>Discount:</Text>
+          <Text>{item.isdiscount ? `${item.discount}%` : "No Discount"}</Text>
+        </View>}
         </View>
 
         {/* Product Table */}
@@ -129,27 +135,33 @@ const Mydocument = ({ item }) => {
           })}
         </View>
 
-        {/* Total */}
+        {item.isdiscount && (
+          <>
+            {/* Total */}
+            <View style={styles.total}>
+              <Text style={styles.totalText}>Total: = {totalAmount}</Text>
+            </View>
+            {/* diccount */}
+            <View style={styles.total}>
+              <Text style={styles.totalText}>
+                Discount: = ({(totalAmount * (item.discount / 100)).toFixed(2)})
+              </Text>
+            </View>
+            {/* line */}
+            <View style={styles.total}>
+              <Text style={styles.totalText}>
+                {"-----------------------------------------"}
+              </Text>
+            </View>
+          </>
+        )}
         <View style={styles.total}>
           <Text style={styles.totalText}>
-            Total: = {totalAmount}
-          </Text>
-        </View>
-        {/* diccount */}
-        <View style={styles.total}>
-          <Text style={styles.totalText}>
-           Discount: =  ({(totalAmount * 10) / 100})
-          </Text>
-        </View>
-        {/* line */}
-        <View style={styles.total}>
-          <Text style={styles.totalText}>
-           {"-----------------------------------------"}
-          </Text>
-        </View>
-        <View style={styles.total}>
-          <Text style={styles.totalText}>
-            Total Payble: = {(totalAmount * 90) / 100} BDT
+            Total Payble: =
+            {!item.isdiscount
+              ? totalAmount
+              : (totalAmount * ((100 - item.discount) / 100)).toFixed(2)}{" "}
+            BDT
           </Text>
         </View>
         {/* Footer */}

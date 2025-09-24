@@ -9,8 +9,6 @@ import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-
-
 export default function Home() {
   const router = useRouter();
   const [invoices, setInvoices] = useState(null);
@@ -25,6 +23,9 @@ export default function Home() {
     phone: "",
     date: today,
     address: "",
+    paid: false,
+    isdiscount: false,
+    discount: 0,
   });
 
   const handleChange = (e) => {
@@ -71,6 +72,9 @@ export default function Home() {
         phone: "",
         date: today,
         address: "",
+        paid: false,
+        isdiscount: false,
+        discount: 0,
       });
     }
     const url = window.URL.createObjectURL(blob);
@@ -248,7 +252,7 @@ export default function Home() {
                         <tr key={index}>
                           <td>
                             <input
-                              className="w-full pl-2  bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
+                              className="w-full pl-2  bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="text"
                               name="product"
                               id="product"
@@ -262,7 +266,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12  outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
+                              className="w-full pl-2 bg-amber-50 h-12  outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="number"
                               name="quantity"
                               id="quantity"
@@ -278,7 +282,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600"
+                              className="w-full pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
                               type="number"
                               min={1}
                               step={1}
@@ -297,16 +301,15 @@ export default function Home() {
                             />
                           </td>
                           <td>
-                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
+                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                               {(products[index].quantity || 0) *
-                                (products[index].amount || 0)}
+                                (products[index].amount || 0).toFixed(2)}
                             </p>
                           </td>
                           <td>
                             <button
                               type="button"
-                              disabled={products.length === 0}
-                              className={`w-full  opacity-0 hover:opacity-100 p-3 hover:visible hover:bg-red-400 active:bg-red-800 h-full ${
+                              className={`w-full opacity-20 hover:opacity-100 active:opacity-100 p-3 h-full ${
                                 products.length <= 1 ? "hidden" : ""
                               }`}
                               onClick={() =>
@@ -326,6 +329,7 @@ export default function Home() {
                 </tbody>
 
                 <tfoot>
+                  {/* buttons */}
                   <tr>
                     <td colSpan={5}>
                       <button
@@ -342,86 +346,138 @@ export default function Home() {
                       </button>
                     </td>
                   </tr>
+                  {/* discount panel */}
+                  {formInfo.isdiscount && (
+                    <tr>
+                      <td colSpan={3}>
+                        <p className="w-full pl-2 h-12 flex-center items-end flex-col">
+                          <span>
+                            Total Amount(
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (85 / 100)
+                            ).toFixed(2)}
+                            +
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (15 / 100)
+                            ).toFixed(2)}
+                            )
+                          </span>
+                          <span className="text-[10px] font-light">
+                            (Main Price + 15% Tax)
+                          </span>
+                        </p>
+                        {formInfo.isdiscount && (
+                          <p className="w-full pl-2 h-12 flex-center justify-end ">
+                            Discount {formInfo.discount}%
+                          </p>
+                        )}
+                      </td>
+                      <td className="bg-amber-50">
+                        <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none  box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                          {products
+                            .reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            )
+                            .toFixed(2)}
+                        </p>
+                        {formInfo.isdiscount && (
+                          <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                            (
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (formInfo.discount / 100)
+                            ).toFixed(2)}
+                            )
+                          </p>
+                        )}
+                      </td>
+                      <td></td>
+                    </tr>
+                  )}
                   <tr>
                     <td colSpan={3}>
-                      <p className="w-full pl-2 h-12 flex-center justify-end  font-bold">
-                        Total Amount(
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (85 / 100)
-                        ).toFixed(2)}
-                        +
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (15 / 100)
-                        ).toFixed(2)}
-                        )
-                        <span className="text-[10px] font-light">
-                          (Main Price + 15% Tax)
+                      <div className="flex items-center">
+                        <span>
+                          <input
+                            className="accent-orange-400 cursor-pointer"
+                            checked={formInfo.isdiscount || false}
+                            onChange={(e) =>
+                              setFormInfo({
+                                ...formInfo,
+                                isdiscount: e.target.checked,
+                              })
+                            }
+                            type="checkbox"
+                            name="check"
+                            id="isdiscount"
+                          />
+                          <label
+                            className="cursor-pointer px-2"
+                            htmlFor="isdiscount"
+                          >
+                            Discount
+                          </label>
                         </span>
-                      </p>
+                        {formInfo.isdiscount && (
+                          <span>
+                            <input
+                              className="input-style flex-1"
+                              type="number"
+                              min={1}
+                              step={1}
+                              name="discount"
+                              id="discount"
+                              placeholder="Discount"
+                              onChange={handleChange}
+                              value={formInfo.discount || 0}
+                            />
+                          </span>
+                        )}
+
+                        <span className="ml-auto font-bold px-2">Payble</span>
+                      </div>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
+                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                         ৳
-                        {products
-                          .reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          )
-                          .toFixed(2)}
-                      </p>
-                    </td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td colSpan={3}>
-                      <p className="w-full pl-2 h-12 flex-center justify-end font-bold">
-                        Discount 10% (
-                        {products
-                          .reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          )
-                          .toFixed(2)}
-                        -
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (10 / 100)
-                        ).toFixed(2)}
-                        )
-                      </p>
-                    </td>
-                    <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none focus:border-gray-400 border-2 box-border ring-gray-600">
-                        ৳
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (90 / 100)
-                        ).toFixed(2)}
+                        {!formInfo.isdiscount &&
+                          products
+                            .reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            )
+                            .toFixed(2)}
+                        {formInfo.isdiscount &&
+                          (
+                            products.reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            ) *
+                            ((100 - formInfo.discount) / 100)
+                          ).toFixed(2)}
                       </p>
                     </td>
                     <td className="font-bold text-blue-700">
                       <input
-                        className="accent-orange-400"
+                        className="accent-orange-400 cursor-pointer"
                         checked={formInfo.paid || false}
                         onChange={(e) =>
                           setFormInfo({ ...formInfo, paid: e.target.checked })
@@ -430,7 +486,9 @@ export default function Home() {
                         name="check"
                         id="check"
                       />
-                      Paid
+                      <label htmlFor="check" className="cursor-pointer">
+                        Paid
+                      </label>
                     </td>
                   </tr>
                 </tfoot>

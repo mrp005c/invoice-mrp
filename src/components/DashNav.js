@@ -5,11 +5,13 @@ import Image from "next/image";
 import Modal from "./MotionModel";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 import { ToastContainer, toast } from "react-toastify";
 
 const DashNav = () => {
   const { data: session, status } = useSession();
   const [dropdown, setDropdown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
   const [formInfo, setFormInfo] = useState({
@@ -27,11 +29,13 @@ const DashNav = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     if (formData.get("password") !== formData.get("confirm_password")) {
       toast.error("Password Didn't match");
       return;
     }
+    setIsLoading(true);
     // e.target.reset()
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -71,6 +75,7 @@ const DashNav = () => {
       toast.error(error.message);
       console.log({ "Error Occured": error });
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -85,7 +90,8 @@ const DashNav = () => {
   if (status === "authenticated") {
     return (
       <>
-      <ToastContainer className="fixed z-50"/>
+        <ToastContainer className="fixed z-50" />
+        <Loading yes={isLoading} />
         <Modal
           isOpen={dropdown}
           onClose={() => {
@@ -233,7 +239,7 @@ const DashNav = () => {
               <Image
                 height={100}
                 width={100}
-                className=" rounded-full object-cover bg-cover"
+                className=" rounded-full object-cover bg-cover h-[100px] w-[100px]"
                 priority={lazy}
                 src={session.user.image || "/user.jpg"}
                 alt="profile pic"

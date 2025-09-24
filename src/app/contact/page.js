@@ -1,12 +1,62 @@
 "use client";
-import React from "react";
+import Loading from "@/components/Loading";
+import Image from "next/image";
+import React, { useState } from "react";
 import { FaTruckLoading } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa6";
 import { RiDeleteBin6Fill, RiEdit2Line } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 
+const Page = () => {
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
+  const [url, setUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-const page = () => {
+  const validateFile = (file) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+
+    if (!allowedTypes.includes(file.type)) {
+      return "Only JPG, PNG, and WEBP files are allowed.";
+    }
+    if (file.size > maxSize) {
+      return "File size must be less than 2MB.";
+    }
+    return null;
+  };
+
+  const handleChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    const validationError = validateFile(selectedFile);
+    if (validationError) {
+      setError(validationError);
+      setFile(null);
+    } else {
+      setError("");
+      setFile(selectedFile);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) return;
+    setIsLoading(true)
+
+    const formData = new FormData();
+    formData.append("file", file);
+  
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    setUrl(data.url);
+    setIsLoading(false)
+  };
+
   const item = {
     _id: {
       $oid: "68ce646a2c1dc0900e9ec9d7",
@@ -71,9 +121,11 @@ const page = () => {
       console.log({ "Error Occured": error });
     }
   };
+
   return (
     <>
-    <ToastContainer className="fixed z-50 "/>
+      <Loading yes={isLoading} />
+      <ToastContainer className="fixed z-50 " />
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
           <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
@@ -122,7 +174,7 @@ const page = () => {
               Feedback
             </h2>
             <p className="leading-relaxed mb-5 text-gray-600">
-             Let us know your feelings and any problem.
+              Let us know your feelings and any problem.
             </p>
             <div className="relative mb-4">
               <label htmlFor="name" className="leading-7 text-sm text-gray-600">
@@ -172,12 +224,13 @@ const page = () => {
               Send Message
             </button>
             <p className="text-xs text-gray-500 mt-3">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non rem porro tenetur!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non rem
+              porro tenetur!
             </p>
           </form>
         </div>
       </section>
-      <section className="h-screen w-full flex-center container mx-auto">
+      {/* <section className="h-screen w-full flex-center container mx-auto">
         <div
           key={2}
           id={item.invoiceId}
@@ -266,9 +319,31 @@ const page = () => {
             </span>
           </div>
         </div>
-      </section>
+      </section> */}
+      <div className="p-4 flex-center flex-col bg-gray-300 w-fit mx-auto rounded-2xl">
+        <input
+          className="file:p-3 file:bg-gray-400 file:rounded-full file:mr-5"
+          type="file"
+          onChange={handleChange}
+        />
+        {error && <p className="text-red-500">{error}</p>}
+        <button
+          onClick={handleUpload}
+          disabled={!file}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Upload
+        </button>
+
+        {url && (
+          <div className="mt-4">
+            <p>Uploaded Image:</p>
+            <Image height={200} src={url} alt="Uploaded" width={200} />
+          </div>
+        )}
+      </div>
     </>
   );
 };
 
-export default page;
+export default Page;

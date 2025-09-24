@@ -30,6 +30,8 @@ const MPage = () => {
     date: today,
     address: "",
     paid: false,
+    isdiscount: false,
+    discount: 0,
   });
 
   const handleDownload = async (id, item) => {
@@ -173,6 +175,9 @@ const MPage = () => {
             phone: "",
             date: today,
             address: "",
+            paid: false,
+            isdiscount: false,
+            discount: 0,
           });
           if (id && id.length > 0) {
             router.push(`/dashboard#${invId}`);
@@ -234,6 +239,8 @@ const MPage = () => {
       date: item.date || today,
       address: item.address || "",
       paid: item.paid || false,
+      isdiscount: item.isdiscount || false,
+      discount: item.discount || 0,
     });
 
     setProducts(item.products);
@@ -244,8 +251,8 @@ const MPage = () => {
   if (session) {
     return (
       <>
-        <ToastContainer className="fixed z-50 "/>
-        <div className="text-lg flex flex-col sm:flex-row  container mx-auto gap-4 bg-gray-200 my-4 p-1 md:p-3 rounded-2xl">
+        <ToastContainer className="fixed z-50 " />
+        <div className="text-lg scroll-smooth flex flex-col sm:flex-row  container mx-auto gap-4 bg-gray-200 my-4 p-1 md:p-3 rounded-2xl">
           <div className="left-side w-full sm:max-w-[200px] p-3 bg-gray-300 flex-center justify-start flex-col gap-3 rounded-2xl">
             <button
               type="button"
@@ -511,7 +518,7 @@ const MPage = () => {
                           <td>
                             <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                               {(products[index].quantity || 0) *
-                                (products[index].amount || 0)}
+                                (products[index].amount || 0).toFixed(2)}
                             </p>
                           </td>
                           <td>
@@ -537,6 +544,7 @@ const MPage = () => {
                 </tbody>
 
                 <tfoot>
+                  {/* buttons */}
                   <tr>
                     <td colSpan={5}>
                       <button
@@ -553,81 +561,133 @@ const MPage = () => {
                       </button>
                     </td>
                   </tr>
+                  {/* discount panel */}
+                  {formInfo.isdiscount && (
+                    <tr>
+                      <td colSpan={3}>
+                        <p className="w-full pl-2 h-12 flex-center items-end flex-col">
+                          <span>
+                            Total Amount(
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (85 / 100)
+                            ).toFixed(2)}
+                            +
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (15 / 100)
+                            ).toFixed(2)}
+                            )
+                          </span>
+                          <span className="text-[10px] font-light">
+                            (Main Price + 15% Tax)
+                          </span>
+                        </p>
+                        {formInfo.isdiscount && (
+                          <p className="w-full pl-2 h-12 flex-center justify-end ">
+                            Discount {formInfo.discount}%
+                          </p>
+                        )}
+                      </td>
+                      <td className="bg-amber-50">
+                        <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none  box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                          {products
+                            .reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            )
+                            .toFixed(2)}
+                        </p>
+                        {formInfo.isdiscount && (
+                          <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                            (
+                            {(
+                              products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              (formInfo.discount / 100)
+                            ).toFixed(2)}
+                            )
+                          </p>
+                        )}
+                      </td>
+                      <td></td>
+                    </tr>
+                  )}
                   <tr>
                     <td colSpan={3}>
-                      <p className="w-full pl-2 h-12 flex-center justify-end  font-bold">
-                        Total Amount(
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (85 / 100)
-                        ).toFixed(2)}
-                        +
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (15 / 100)
-                        ).toFixed(2)}
-                        )
-                        <span className="text-[10px] font-light">
-                          (Main Price + 15% Tax)
+                      <div className="flex items-center">
+                        <span>
+                          <input
+                            className="accent-orange-400 cursor-pointer"
+                            checked={formInfo.isdiscount || false}
+                            onChange={(e) =>
+                              setFormInfo({
+                                ...formInfo,
+                                isdiscount: e.target.checked,
+                              })
+                            }
+                            type="checkbox"
+                            name="check"
+                            id="isdiscount"
+                          />
+                          <label
+                            className="cursor-pointer px-2"
+                            htmlFor="isdiscount"
+                          >
+                            Discount
+                          </label>
                         </span>
-                      </p>
+                        {formInfo.isdiscount && (
+                          <span>
+                            <input
+                              className="input-style flex-1"
+                              type="number"
+                              min={1}
+                              step={1}
+                              name="discount"
+                              id="discount"
+                              placeholder="Discount"
+                              onChange={handleChange}
+                              value={formInfo.discount || 0}
+                            />
+                          </span>
+                        )}
+
+                        <span className="ml-auto font-bold px-2">Payble</span>
+                      </div>
                     </td>
                     <td>
                       <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
                         ৳
-                        {products
-                          .reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          )
-                          .toFixed(2)}
-                      </p>
-                    </td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td colSpan={3}>
-                      <p className="w-full pl-2 h-12 flex-center justify-end font-bold">
-                        Discount 10% (
-                        {products
-                          .reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          )
-                          .toFixed(2)}
-                        -
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (10 / 100)
-                        ).toFixed(2)}
-                        )
-                      </p>
-                    </td>
-                    <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
-                        ৳
-                        {(
-                          products.reduce(
-                            (sum, p) =>
-                              sum + Number(p.quantity) * Number(p.amount),
-                            0
-                          ) *
-                          (90 / 100)
-                        ).toFixed(2)}
+                        {!formInfo.isdiscount &&
+                          products
+                            .reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            )
+                            .toFixed(2)}
+                        {formInfo.isdiscount &&
+                          (
+                            products.reduce(
+                              (sum, p) =>
+                                sum + Number(p.quantity) * Number(p.amount),
+                              0
+                            ) *
+                            ((100 - formInfo.discount) / 100)
+                          ).toFixed(2)}
                       </p>
                     </td>
                     <td className="font-bold text-blue-700">
@@ -641,8 +701,9 @@ const MPage = () => {
                         name="check"
                         id="check"
                       />
-                      <label htmlFor="check" className="cursor-pointer">Paid</label>
-                      
+                      <label htmlFor="check" className="cursor-pointer">
+                        Paid
+                      </label>
                     </td>
                   </tr>
                 </tfoot>
@@ -760,16 +821,19 @@ const MPage = () => {
 
                     <span className="font-semibold">
                       <span>Total Price : </span>
-                      <span className={`${item.paid ?"bg-gray-100 ": "bg-red-500 text-white"} px-2 py-1 rounded-md ring-2 ring-gray-700`}>
+                      <span
+                        className={`${
+                          item.paid ? "bg-gray-100 " : "bg-red-500 text-white"
+                        } px-2 py-1 rounded-md ring-2 ring-gray-700`}
+                      >
                         {item.products.length > 0 &&
-                          (
-                            item.products.reduce(
+                          item.products
+                            .reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
                               0
-                            ) *
-                            (90 / 100)
-                          ).toFixed(2)}
+                            )
+                            .toFixed(2)}
                         /=
                       </span>
                     </span>
