@@ -788,9 +788,11 @@ const MPage = () => {
                   </div>
                   <div className="flex-between flex-wrap gap-3">
                     <div className="flex-center flex-wrap gap-3">
-                      <span className="bg-gray-100 px-2 py-1 rounded-md font-bold">
-                        10% Off
-                      </span>
+                      {item.isdiscount && (
+                        <span className="bg-gray-100 px-2 py-1 rounded-md font-bold">
+                          {item.discount}% Off
+                        </span>
+                      )}
                       {item.paid ? (
                         <span className="bg-blue-300 px-2 py-1 rounded-md font-bold">
                           Paid
@@ -826,14 +828,22 @@ const MPage = () => {
                           item.paid ? "bg-gray-100 " : "bg-red-500 text-white"
                         } px-2 py-1 rounded-md ring-2 ring-gray-700`}
                       >
-                        {item.products.length > 0 &&
-                          item.products
-                            .reduce(
-                              (sum, p) =>
-                                sum + Number(p.quantity) * Number(p.amount),
-                              0
-                            )
-                            .toFixed(2)}
+                        {item.isdiscount
+                          ? (
+                              item.products.reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              ) *
+                              ((100 - item.discount) / 100)
+                            ).toFixed(2)
+                          : item.products
+                              .reduce(
+                                (sum, p) =>
+                                  sum + Number(p.quantity) * Number(p.amount),
+                                0
+                              )
+                              .toFixed(2)}
                         /=
                       </span>
                     </span>
