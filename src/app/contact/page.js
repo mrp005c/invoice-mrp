@@ -15,13 +15,13 @@ const Page = () => {
 
   const validateFile = (file) => {
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-    const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 0.4 * 1024 * 1024; // 2MB
 
     if (!allowedTypes.includes(file.type)) {
       return "Only JPG, PNG, and WEBP files are allowed.";
     }
     if (file.size > maxSize) {
-      return "File size must be less than 2MB.";
+      return "File size must be less than 400kb.";
     }
     return null;
   };
@@ -42,11 +42,11 @@ const Page = () => {
 
   const handleUpload = async () => {
     if (!file) return;
-    setIsLoading(true)
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("file", file);
-  
+
     const res = await fetch("/api/upload", {
       method: "POST",
       body: formData,
@@ -54,7 +54,7 @@ const Page = () => {
 
     const data = await res.json();
     setUrl(data.url);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const item = {
@@ -125,10 +125,10 @@ const Page = () => {
   return (
     <>
       <Loading yes={isLoading} />
-      <ToastContainer className="fixed z-50 " />
-      <section className="text-gray-600 body-font relative">
-        <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
-          <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+      <ToastContainer className="fixed z-50" />
+      <section className="body-font relative text-gray-600">
+        <div className="container mx-auto flex flex-wrap px-5 py-24 sm:flex-nowrap">
+          <div className="relative flex items-end justify-start overflow-hidden rounded-lg bg-gray-300 p-10 sm:mr-10 md:w-1/2 lg:w-2/3">
             <iframe
               width="100%"
               height="100%"
@@ -143,23 +143,23 @@ const Page = () => {
               style={{ filter: "grayscale(1) contrast(1.2) opacity(0.4)" }}
             ></iframe>
 
-            <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
-              <div className="lg:w-1/2 px-6">
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
+            <div className="relative flex flex-wrap rounded bg-white py-6 shadow-md">
+              <div className="px-6 lg:w-1/2">
+                <h2 className="title-font text-xs font-semibold tracking-widest text-gray-900">
                   ADDRESS
                 </h2>
                 <p className="mt-1">
                   Natore Station Bypass, Natore, Bangladesh
                 </p>
               </div>
-              <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
+              <div className="mt-4 px-6 lg:mt-0 lg:w-1/2">
+                <h2 className="title-font text-xs font-semibold tracking-widest text-gray-900">
                   EMAIL
                 </h2>
-                <a className="text-indigo-500 leading-relaxed">
+                <a className="leading-relaxed text-indigo-500">
                   support@invoice.com
                 </a>
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">
+                <h2 className="title-font mt-4 text-xs font-semibold tracking-widest text-gray-900">
                   PHONE
                 </h2>
                 <p className="leading-relaxed">123-456-7890</p>
@@ -168,16 +168,16 @@ const Page = () => {
           </div>
           <form
             onSubmit={handleSubscribe}
-            className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full px-2 rounded-md md:py-8 mt-8 md:mt-0"
+            className="mt-8 flex w-full flex-col rounded-md bg-white px-2 md:mt-0 md:ml-auto md:w-1/2 md:py-8 lg:w-1/3"
           >
-            <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">
+            <h2 className="title-font mb-1 text-lg font-medium text-gray-900">
               Feedback
             </h2>
-            <p className="leading-relaxed mb-5 text-gray-600">
+            <p className="mb-5 leading-relaxed text-gray-600">
               Let us know your feelings and any problem.
             </p>
             <div className="relative mb-4">
-              <label htmlFor="name" className="leading-7 text-sm text-gray-600">
+              <label htmlFor="name" className="text-sm leading-7 text-gray-600">
                 Name
               </label>
               <input
@@ -185,13 +185,13 @@ const Page = () => {
                 id="name"
                 name="name"
                 required
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               />
             </div>
             <div className="relative mb-4">
               <label
                 htmlFor="aemail"
-                className="leading-7 text-sm text-gray-600"
+                className="text-sm leading-7 text-gray-600"
               >
                 Email
               </label>
@@ -200,30 +200,30 @@ const Page = () => {
                 id="aemail"
                 name="email"
                 required
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               />
             </div>
             <div className="relative mb-4">
               <label
                 htmlFor="message"
-                className="leading-7 text-sm text-gray-600"
+                className="text-sm leading-7 text-gray-600"
               >
                 Message
               </label>
               <textarea
                 id="message"
                 name="message"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                className="h-32 w-full resize-none rounded border border-gray-300 bg-white px-3 py-1 text-base leading-6 text-gray-700 transition-colors duration-200 ease-in-out outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                 required
               ></textarea>
             </div>
             <button
               type="submit"
-              className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600  active:bg-indigo-800 rounded text-lg"
+              className="rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none active:bg-indigo-800"
             >
               Send Message
             </button>
-            <p className="text-xs text-gray-500 mt-3">
+            <p className="mt-3 text-xs text-gray-500">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non rem
               porro tenetur!
             </p>
@@ -320,9 +320,9 @@ const Page = () => {
           </div>
         </div>
       </section> */}
-      <div className="p-4 flex-center flex-col bg-gray-300 w-fit mx-auto rounded-2xl">
+      <div className="flex-center mx-auto w-fit flex-col rounded-2xl bg-gray-300 p-4">
         <input
-          className="file:p-3 file:bg-gray-400 file:rounded-full file:mr-5"
+          className="file:mr-5 file:rounded-full file:bg-gray-400 file:p-3"
           type="file"
           onChange={handleChange}
         />
@@ -330,7 +330,7 @@ const Page = () => {
         <button
           onClick={handleUpload}
           disabled={!file}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="rounded bg-blue-500 px-4 py-2 text-white"
         >
           Upload
         </button>

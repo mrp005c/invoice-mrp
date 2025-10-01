@@ -25,7 +25,7 @@ export default function Home() {
     address: "",
     paid: false,
     isdiscount: false,
-    discount: 0,
+    discount: "",
   });
 
   const handleChange = (e) => {
@@ -74,7 +74,7 @@ export default function Home() {
         address: "",
         paid: false,
         isdiscount: false,
-        discount: 0,
+        discount: "",
       });
     }
     const url = window.URL.createObjectURL(blob);
@@ -85,39 +85,48 @@ export default function Home() {
     link.click();
   };
   return (
-    <div className="flex-center flex-col min-h-screen bg-pri-gray w-full scroll-smooth">
+    <div className="flex-center bg-pri-gray min-h-screen w-full flex-col scroll-smooth">
       <section
-        className="hero w-full h-screen relative"
+        className="hero relative h-screen w-full"
         // style={backgroundImage:}
         // style={{backgroundImage: new URL('/herosectionbg.jpg')}}
         // style="background-image: url('/herosectionbg.jpg');"
       >
-        <div className="img h-full w-full flex-center justify-end absolute bg-cover bg-center blur-md min-[3000px]:blur-2xl rounded-br-[25%] box-border pr-24 z-10 bg-[url('/herosectionbg.jpg')]  "></div>
-        <div className="relative z-30 h-full pt-16 w-full flex-center bg-[#00000039] text-sec-white">
+        <div className="img flex-center absolute z-10 box-border h-full w-full justify-end rounded-br-[25%] bg-cover bg-center pr-24 blur-sm min-[3000px]:blur-md">
+          {" "}
+          <Image
+            className="h-full w-full object-cover object-center"
+            fill={true}
+            priority={true}
+            alt="herosection image"
+            src="/herosectionbg.jpg"
+          ></Image>
+        </div>
+        <div className="flex-center text-sec-white relative z-30 h-full w-full bg-[#00000039] pt-16">
           {/* <Image
             width={800}
             height={500}
             src="/header_Invoices2.avif"
             alt="none"
           /> */}
-          <div className="text-box p-1 sm:p-2 md:p-3 flex-center flex-col gap-4 max-w-[900px] ">
-            <h2 className="text-6xl md:text-8xl font-bold text-center text-shadow-lg text-shadow-blue-700 max-[320px]:text-5xl">
+          <div className="text-box flex-center max-w-[900px] flex-col gap-4 p-1 sm:p-2 md:p-3">
+            <h2 className="text-center text-6xl font-bold text-shadow-blue-700 text-shadow-lg max-[320px]:text-5xl md:text-8xl">
               Welcome to Our Invoice Web
             </h2>
-            <div className="links text-base md:text-lg text-sec-white flex-center gap-3 text-center flex-wrap">
+            <div className="links text-sec-white flex-center flex-wrap gap-3 text-center text-base md:text-lg">
               <span>#1 Performance Benchmark</span>
               <span>#1 Compititive Bake-Off</span>
               <span>#1 Ranking One Go2</span>
             </div>
-            <div className="buttons text-lg md:text-xl flex-center gap-3 flex-wrap">
+            <div className="buttons flex-center flex-wrap gap-3 text-lg md:text-xl">
               <Link
-                className="prim-btn w-fit bg-blue-600  hover:bg-violet-400 active:bg-violet-900 transition-all"
+                className="prim-btn w-fit bg-blue-600 transition-all hover:bg-violet-400 active:bg-violet-900"
                 href="/#invoices"
               >
                 Get Started
               </Link>
               <Link
-                className="prim-btn w-fit bg-blue-600 hover:bg-violet-400 active:bg-violet-900 transition-all"
+                className="prim-btn w-fit bg-blue-600 transition-all hover:bg-violet-400 active:bg-violet-900"
                 href="/about"
               >
                 Know More
@@ -129,21 +138,21 @@ export default function Home() {
 
       <section
         id="invoices"
-        className="h-fit w-full bg-[#1858b8] flex-center items-end "
+        className="flex-center h-fit w-full items-end bg-[#1858b8]"
       >
-        <div className="flex flex-col container py-8  mx-auto gap-4 p-3 bg-gray-200 rounded-2xl overflow-auto">
-          <h2 className="text-2xl flex-center font-bold ">
+        <div className="container mx-auto flex flex-col gap-4 overflow-auto rounded-2xl bg-gray-200 p-3 py-8">
+          <h2 className="flex-center text-2xl font-bold">
             Create Your Invoice
           </h2>
           <form
-            className="flex flex-col min-w-[400px] w-full max-w-[900px] text-sm mx-auto gap-4 p-3 bg-gray-300 rounded-2xl overflow-auto"
+            className="mx-auto flex w-full max-w-[900px] min-w-[550px] flex-col gap-4 overflow-auto rounded-2xl bg-gray-300 p-3 text-sm"
             onSubmit={handleDownload}
           >
-            <h1 className="flex-center text-3xl font-bold m-3 text-pri-blue w-fit px-4 py-3 bg-gray-100 rounded-3xl mx-auto">
+            <h1 className="flex-center text-pri-blue m-3 mx-auto w-fit rounded-3xl bg-gray-100 px-4 py-3 text-3xl font-bold">
               Invoice
             </h1>
-            <div className="companyinfo flex-center flex-col bg-gray-200  p-3 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-sec-blue">
+            <div className="companyinfo flex-center flex-col rounded-2xl bg-gray-200 p-3">
+              <h3 className="text-sec-blue text-2xl font-semibold">
                 Invoice Maker Co. LTD
               </h3>
               <div className="cem-ph flex-between gap-2 text-xs">
@@ -151,9 +160,9 @@ export default function Home() {
                 <span>Phone : +9177882233</span>
               </div>
             </div>
-            <div className="w-full flex-between items-start bg-gray-200 p-2 rounded-xl">
-              <div className="name-email-address w-1/3 flex gap-2 flex-col">
-                <div className="flex items-center flex-1">
+            <div className="flex-between w-full items-start rounded-xl bg-gray-200 p-2">
+              <div className="name-email-address flex w-1/3 flex-col gap-2">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="full_name">
                     Name :
                   </label>
@@ -168,7 +177,7 @@ export default function Home() {
                     required
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formemail">
                     Email :
                   </label>
@@ -183,7 +192,7 @@ export default function Home() {
                     required
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formphone">
                     Phone :
                   </label>
@@ -199,8 +208,8 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className="name-email-address w-1/3 flex gap-2 flex-col">
-                <div className="flex items-center flex-1 flex-wrap">
+              <div className="name-email-address flex w-1/3 flex-col gap-2">
+                <div className="flex flex-1 flex-wrap items-center">
                   <label className="font-semibold" htmlFor="date">
                     Date :
                   </label>
@@ -214,7 +223,7 @@ export default function Home() {
                     placeholder="Enter Date"
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formaddress">
                     Address :
                   </label>
@@ -232,9 +241,9 @@ export default function Home() {
             </div>
 
             {/* products line */}
-            <div className="products bg-gray-200 p-3 box-border rounded-2xl">
+            <div className="products box-border rounded-2xl bg-gray-200 p-3">
               {/* <h4 className="text-lg font-bold">Items</h4> */}
-              <table className="w-full  border-collapse box-border">
+              <table className="box-border w-full border-collapse">
                 <thead className="w-full">
                   <tr className="w-full">
                     <th className="w-1/2">Products</th>
@@ -252,7 +261,7 @@ export default function Home() {
                         <tr key={index}>
                           <td>
                             <input
-                              className="w-full pl-2  bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="text"
                               name="product"
                               id="product"
@@ -266,7 +275,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12  outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="number"
                               name="quantity"
                               id="quantity"
@@ -282,7 +291,7 @@ export default function Home() {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="number"
                               min={1}
                               step={1}
@@ -290,36 +299,34 @@ export default function Home() {
                               id="amount"
                               placeholder="Enter Amount"
                               onChange={(e) =>
-                                handlePchange(
-                                  index,
-                                  "amount",
-                                  Number(e.target.value)
-                                )
+                                handlePchange(index, "amount", e.target.value)
                               }
                               value={products[index].amount}
                               required
                             />
                           </td>
                           <td>
-                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
-                              {(products[index].quantity || 0) *
-                                (products[index].amount || 0).toFixed(2)}
+                            <p className="flex-center box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
+                              {(
+                                (products[index].quantity || 0) *
+                                (products[index].amount || 0)
+                              ).toFixed(2)}
                             </p>
                           </td>
                           <td>
                             <button
                               type="button"
-                              className={`w-full opacity-20 hover:opacity-100 active:opacity-100 p-3 h-full ${
+                              className={`h-full w-full p-3 opacity-20 hover:opacity-100 active:opacity-100 ${
                                 products.length <= 1 ? "hidden" : ""
                               }`}
                               onClick={() =>
                                 setProducts((prev) =>
-                                  prev.filter((_, i) => i !== index)
+                                  prev.filter((_, i) => i !== index),
                                 )
                               }
                             >
-                              <p className="flex-center  text-2xl w-full h-full">
-                                <MdDelete className="flex-center " />
+                              <p className="flex-center h-full w-full text-2xl">
+                                <MdDelete className="flex-center" />
                               </p>
                             </button>
                           </td>
@@ -350,14 +357,14 @@ export default function Home() {
                   {formInfo.isdiscount && (
                     <tr>
                       <td colSpan={3}>
-                        <p className="w-full pl-2 h-12 flex-center items-end flex-col">
+                        <p className="flex-center h-12 w-full flex-col items-end pl-2">
                           <span>
                             Total Amount(
                             {(
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (85 / 100)
                             ).toFixed(2)}
@@ -366,7 +373,7 @@ export default function Home() {
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (15 / 100)
                             ).toFixed(2)}
@@ -377,29 +384,29 @@ export default function Home() {
                           </span>
                         </p>
                         {formInfo.isdiscount && (
-                          <p className="w-full pl-2 h-12 flex-center justify-end ">
+                          <p className="flex-center h-12 w-full justify-end pl-2">
                             Discount {formInfo.discount}%
                           </p>
                         )}
                       </td>
                       <td className="bg-amber-50">
-                        <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none  box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                        <p className="flex-center box-border h-12 w-full bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                           {products
                             .reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             )
                             .toFixed(2)}
                         </p>
                         {formInfo.isdiscount && (
-                          <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                          <p className="flex-center box-border h-12 w-full bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                             (
                             {(
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (formInfo.discount / 100)
                             ).toFixed(2)}
@@ -415,7 +422,7 @@ export default function Home() {
                       <div className="flex items-center">
                         <span>
                           <input
-                            className="accent-orange-400 cursor-pointer"
+                            className="cursor-pointer accent-orange-400"
                             checked={formInfo.isdiscount || false}
                             onChange={(e) =>
                               setFormInfo({
@@ -445,23 +452,23 @@ export default function Home() {
                               id="discount"
                               placeholder="Discount"
                               onChange={handleChange}
-                              value={formInfo.discount || 0}
+                              value={formInfo.discount || ""}
                             />
                           </span>
                         )}
 
-                        <span className="ml-auto font-bold px-2">Payble</span>
+                        <span className="ml-auto px-2 font-bold">Payble</span>
                       </div>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                      <p className="flex-center box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                         ৳
                         {!formInfo.isdiscount &&
                           products
                             .reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             )
                             .toFixed(2)}
                         {formInfo.isdiscount &&
@@ -469,7 +476,7 @@ export default function Home() {
                             products.reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             ) *
                             ((100 - formInfo.discount) / 100)
                           ).toFixed(2)}
@@ -477,7 +484,7 @@ export default function Home() {
                     </td>
                     <td className="font-bold text-blue-700">
                       <input
-                        className="accent-orange-400 cursor-pointer"
+                        className="cursor-pointer accent-orange-400"
                         checked={formInfo.paid || false}
                         onChange={(e) =>
                           setFormInfo({ ...formInfo, paid: e.target.checked })
@@ -494,7 +501,7 @@ export default function Home() {
                 </tfoot>
               </table>
             </div>
-            <button className="sec-btn w-fit px-10 m-auto" type="submit">
+            <button className="sec-btn m-auto w-fit px-10" type="submit">
               Download PDF
             </button>
           </form>

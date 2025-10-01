@@ -115,9 +115,9 @@ const CFooter = () => {
               </div>
               <button
                 type="submit"
-                className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 active:bg-indigo-800 rounded"
+                className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 active:bg-indigo-800 rounded"
               >
-                Button
+                Subscribe
               </button>
             </form>
             <p className="text-gray-500 text-sm mt-2 md:text-left text-center">

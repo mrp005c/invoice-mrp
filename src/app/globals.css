@@ -135,43 +135,43 @@ td {
 }
 
 @utility flex-center {
-  @apply flex justify-center items-center;
+  @apply flex items-center justify-center;
 }
 
 @utility flex-around {
-  @apply flex justify-around items-center;
+  @apply flex items-center justify-around;
 }
 
 @utility flex-between {
-  @apply flex justify-between items-center;
+  @apply flex items-center justify-between;
 }
 
 @utility pri-btn {
-  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black active:bg-black text-pri-white  font-semibold rounded-full transition-all;
+  @apply flex-center bg-sec-gray hover:bg-sec-black text-pri-white rounded-full px-2 py-1 font-semibold transition-all active:bg-black;
 }
 
 @utility prim-btn {
-  @apply flex-center px-2 py-1 bg-sec-gray hover:bg-sec-black  active:bg-black text-pri-white  font-semibold rounded-lg transition-all;
+  @apply flex-center bg-sec-gray hover:bg-sec-black text-pri-white rounded-lg px-2 py-1 font-semibold transition-all active:bg-black;
 }
 
 @utility sec-btn {
-  @apply flex-center box-border px-5 py-3 bg-pri-blue hover:bg-sec-blue  active:bg-black text-pri-white  font-semibold rounded-full transition-all;
+  @apply flex-center bg-pri-blue hover:bg-sec-blue text-pri-white box-border rounded-full px-5 py-3 font-semibold transition-all active:bg-black;
 }
 
 @utility nav-link {
-  @apply flex-center box-border hover:bg-pri-white  active:bg-gray-400 p-1 font-semibold rounded-lg transition-all;
+  @apply flex-center hover:bg-pri-white box-border rounded-lg p-1 font-semibold transition-all active:bg-gray-400;
 }
 
 @utility input-style {
-  @apply flex justify-start  box-border px-2 py-1 border  rounded-sm transition-all w-full lg:w-1/2 bg-slate-100 focus:bg-white focus:ring-2 ring-gray-500;
+  @apply box-border flex w-full justify-start rounded-sm border bg-slate-100 px-2 py-1 ring-gray-500 transition-all focus:bg-white focus:ring-2 lg:w-1/2;
 }
 
 @utility userinfo-key {
-  @apply box-border px-2 py-1 w-[130px]  rounded-sm;
+  @apply box-border w-[130px] rounded-sm px-2 py-1;
 }
 
 @utility userinfo-item {
-  @apply flex box-border pl-2 py-1 border w-[300px] flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap rounded-sm transition-all bg-sec-white;
+  @apply bg-sec-white box-border flex w-[300px] flex-1 overflow-hidden rounded-sm border py-1 pl-2 overflow-ellipsis whitespace-nowrap transition-all;
 }
 
 .dark {

@@ -22,6 +22,7 @@ const MPage = () => {
   const [products, setProducts] = useState([
     { product: "", quantity: "", amount: "" },
   ]);
+
   const [formInfo, setFormInfo] = useState({
     invoiceId: uuidv4(),
     full_name: "",
@@ -31,7 +32,7 @@ const MPage = () => {
     address: "",
     paid: false,
     isdiscount: false,
-    discount: 0,
+    discount: "",
   });
 
   const handleDownload = async (id, item) => {
@@ -177,7 +178,7 @@ const MPage = () => {
             address: "",
             paid: false,
             isdiscount: false,
-            discount: 0,
+            discount: "",
           });
           if (id && id.length > 0) {
             router.push(`/dashboard#${invId}`);
@@ -240,7 +241,7 @@ const MPage = () => {
       address: item.address || "",
       paid: item.paid || false,
       isdiscount: item.isdiscount || false,
-      discount: item.discount || 0,
+      discount: item.discount,
     });
 
     setProducts(item.products);
@@ -251,9 +252,9 @@ const MPage = () => {
   if (session) {
     return (
       <>
-        <ToastContainer className="fixed z-50 " />
-        <div className="text-lg scroll-smooth flex flex-col sm:flex-row  container mx-auto gap-4 bg-gray-200 my-4 p-1 md:p-3 rounded-2xl">
-          <div className="left-side w-full sm:max-w-[200px] p-3 bg-gray-300 flex-center justify-start flex-col gap-3 rounded-2xl">
+        <ToastContainer className="fixed z-50" />
+        <div className="container mx-auto my-4 flex flex-col gap-4 scroll-smooth rounded-2xl bg-gray-200 p-1 text-lg sm:flex-row md:p-3">
+          <div className="left-side flex-center w-full flex-col justify-start gap-3 rounded-2xl bg-gray-300 p-3 sm:max-w-[200px]">
             <button
               type="button"
               onClick={() => router.push("/dashboard?tab=profile")}
@@ -310,7 +311,7 @@ const MPage = () => {
           </div>
 
           {userinfo && (
-            <div className="right-side  p-3 bg-gray-300 flex flex-col flex-1 gap-3 rounded-2xl">
+            <div className="right-side flex flex-1 flex-col gap-3 rounded-2xl bg-gray-300 p-3">
               <h3 className="text-2xl font-bold">
                 Profile
                 {/* {(tab === "profile" || tab === null) && "Profile"} */}
@@ -320,25 +321,25 @@ const MPage = () => {
                 {tab == "gifts" && "Gifts"} */}
               </h3>
               <div className="flex">
-                <span className="font-bold userinfo-key">Name: &nbsp;</span>
+                <span className="userinfo-key font-bold">Name: &nbsp;</span>
                 <span className="userinfo-item"> {userinfo.name}</span>
               </div>
               <div className="flex">
-                <span className="font-bold userinfo-key">Email: &nbsp;</span>
+                <span className="userinfo-key font-bold">Email: &nbsp;</span>
                 <span className="userinfo-item"> {userinfo.email}</span>
               </div>
               <div className="flex">
-                <span className="font-bold userinfo-key">Phone: &nbsp;</span>
+                <span className="userinfo-key font-bold">Phone: &nbsp;</span>
                 <span className="userinfo-item"> {userinfo.phone}</span>
               </div>
               <div className="flex">
-                <span className="font-bold userinfo-key">
+                <span className="userinfo-key font-bold">
                   Birth Date: &nbsp;
                 </span>
                 <span className="userinfo-item"> {userinfo.birth_date}</span>
               </div>
               <div className="flex">
-                <span className="font-bold userinfo-key">Address: &nbsp;</span>
+                <span className="userinfo-key font-bold">Address: &nbsp;</span>
                 <span className="userinfo-item"> {userinfo.address}</span>
               </div>
             </div>
@@ -347,18 +348,18 @@ const MPage = () => {
         {/* This is Your ADD Invoices Line */}
         <div
           id="add_invoices"
-          className="flex flex-col container py-8  mx-auto gap-4 p-3 bg-gray-200 rounded-2xl overflow-auto"
+          className="container mx-auto flex flex-col gap-4 overflow-auto rounded-2xl bg-gray-200 p-3 py-8"
         >
-          <h2 className="text-2xl flex-center font-bold ">Add Your Invoice</h2>
+          <h2 className="flex-center text-2xl font-bold">Add Your Invoice</h2>
           <form
-            className="flex flex-col min-w-[400px] w-full max-w-[900px] text-sm mx-auto gap-4 p-3 bg-gray-300 rounded-2xl overflow-auto"
+            className="mx-auto flex w-full max-w-[900px] min-w-[400px] flex-col gap-4 overflow-auto rounded-2xl bg-gray-300 p-3 text-sm"
             onSubmit={handleSubmit}
           >
-            <h1 className="flex-center text-3xl font-bold m-3 text-pri-blue w-fit px-4 py-3 bg-gray-100 rounded-3xl mx-auto">
+            <h1 className="flex-center text-pri-blue m-3 mx-auto w-fit rounded-3xl bg-gray-100 px-4 py-3 text-3xl font-bold">
               Invoice
             </h1>
-            <div className="companyinfo flex-center flex-col bg-gray-200  p-3 rounded-2xl">
-              <h3 className="text-2xl font-semibold text-sec-blue">
+            <div className="companyinfo flex-center flex-col rounded-2xl bg-gray-200 p-3">
+              <h3 className="text-sec-blue text-2xl font-semibold">
                 Invoice Maker Co. LTD
               </h3>
               <div className="cem-ph flex-between gap-2 text-xs">
@@ -366,9 +367,9 @@ const MPage = () => {
                 <span>Phone : +9177882233</span>
               </div>
             </div>
-            <div className="w-full flex-between items-start bg-gray-200 p-2 rounded-xl">
-              <div className="name-email-address w-1/3 flex gap-2 flex-col">
-                <div className="flex items-center flex-1">
+            <div className="flex-between w-full items-start rounded-xl bg-gray-200 p-2">
+              <div className="name-email-address flex w-1/3 flex-col gap-2">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="full_name">
                     Name :
                   </label>
@@ -383,7 +384,7 @@ const MPage = () => {
                     required
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formemail">
                     Email :
                   </label>
@@ -398,7 +399,7 @@ const MPage = () => {
                     required
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formphone">
                     Phone :
                   </label>
@@ -414,8 +415,8 @@ const MPage = () => {
                   />
                 </div>
               </div>
-              <div className="name-email-address w-1/3 flex gap-2 flex-col">
-                <div className="flex items-center flex-1 flex-wrap">
+              <div className="name-email-address flex w-1/3 flex-col gap-2">
+                <div className="flex flex-1 flex-wrap items-center">
                   <label className="font-semibold" htmlFor="date">
                     Date :
                   </label>
@@ -429,7 +430,7 @@ const MPage = () => {
                     placeholder="Enter Date"
                   />
                 </div>
-                <div className="flex items-center flex-1">
+                <div className="flex flex-1 items-center">
                   <label className="font-semibold" htmlFor="formaddress">
                     Address :
                   </label>
@@ -447,9 +448,9 @@ const MPage = () => {
             </div>
 
             {/* products line */}
-            <div className="products bg-gray-200 p-3 box-border rounded-2xl">
+            <div className="products box-border rounded-2xl bg-gray-200 p-3">
               {/* <h4 className="text-lg font-bold">Items</h4> */}
-              <table className="w-full  border-collapse box-border">
+              <table className="box-border w-full border-collapse">
                 <thead className="w-full">
                   <tr className="w-full">
                     <th className="w-1/2">Products</th>
@@ -467,7 +468,7 @@ const MPage = () => {
                         <tr key={index}>
                           <td>
                             <input
-                              className="w-full pl-2  bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="text"
                               name="product"
                               id="product"
@@ -481,7 +482,7 @@ const MPage = () => {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12  outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="number"
                               name="quantity"
                               id="quantity"
@@ -497,7 +498,7 @@ const MPage = () => {
                           </td>
                           <td>
                             <input
-                              className="w-full pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400"
+                              className="box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1"
                               type="number"
                               min={1}
                               step={1}
@@ -505,36 +506,34 @@ const MPage = () => {
                               id="amount"
                               placeholder="Enter Amount"
                               onChange={(e) =>
-                                handlePchange(
-                                  index,
-                                  "amount",
-                                  Number(e.target.value)
-                                )
+                                handlePchange(index, "amount", e.target.value)
                               }
                               value={products[index].amount}
                               required
                             />
                           </td>
                           <td>
-                            <p className="w-full pl-2 flex-center bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
-                              {(products[index].quantity || 0) *
-                                (products[index].amount || 0).toFixed(2)}
+                            <p className="flex-center box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
+                              {(
+                                (products[index].quantity || 0) *
+                                (products[index].amount || 0)
+                              ).toFixed(2)}
                             </p>
                           </td>
                           <td>
                             <button
                               type="button"
-                              className={`w-full opacity-20 hover:opacity-100 active:opacity-100 p-3 h-full ${
+                              className={`h-full w-full p-3 opacity-20 hover:opacity-100 active:opacity-100 ${
                                 products.length <= 1 ? "hidden" : ""
                               }`}
                               onClick={() =>
                                 setProducts((prev) =>
-                                  prev.filter((_, i) => i !== index)
+                                  prev.filter((_, i) => i !== index),
                                 )
                               }
                             >
-                              <p className="flex-center  text-2xl w-full h-full">
-                                <MdDelete className="flex-center " />
+                              <p className="flex-center h-full w-full text-2xl">
+                                <MdDelete className="flex-center" />
                               </p>
                             </button>
                           </td>
@@ -565,14 +564,14 @@ const MPage = () => {
                   {formInfo.isdiscount && (
                     <tr>
                       <td colSpan={3}>
-                        <p className="w-full pl-2 h-12 flex-center items-end flex-col">
+                        <p className="flex-center h-12 w-full flex-col items-end pl-2">
                           <span>
                             Total Amount(
                             {(
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (85 / 100)
                             ).toFixed(2)}
@@ -581,7 +580,7 @@ const MPage = () => {
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (15 / 100)
                             ).toFixed(2)}
@@ -592,29 +591,29 @@ const MPage = () => {
                           </span>
                         </p>
                         {formInfo.isdiscount && (
-                          <p className="w-full pl-2 h-12 flex-center justify-end ">
+                          <p className="flex-center h-12 w-full justify-end pl-2">
                             Discount {formInfo.discount}%
                           </p>
                         )}
                       </td>
                       <td className="bg-amber-50">
-                        <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none  box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                        <p className="flex-center box-border h-12 w-full bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                           {products
                             .reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             )
                             .toFixed(2)}
                         </p>
                         {formInfo.isdiscount && (
-                          <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                          <p className="flex-center box-border h-12 w-full bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                             (
                             {(
                               products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               (formInfo.discount / 100)
                             ).toFixed(2)}
@@ -630,7 +629,7 @@ const MPage = () => {
                       <div className="flex items-center">
                         <span>
                           <input
-                            className="accent-orange-400 cursor-pointer"
+                            className="cursor-pointer accent-orange-400"
                             checked={formInfo.isdiscount || false}
                             onChange={(e) =>
                               setFormInfo({
@@ -660,23 +659,23 @@ const MPage = () => {
                               id="discount"
                               placeholder="Discount"
                               onChange={handleChange}
-                              value={formInfo.discount || 0}
+                              value={formInfo.discount}
                             />
                           </span>
                         )}
 
-                        <span className="ml-auto font-bold px-2">Payble</span>
+                        <span className="ml-auto px-2 font-bold">Payble</span>
                       </div>
                     </td>
                     <td>
-                      <p className="w-full flex-center pl-2 bg-amber-50 h-12 outline-none border-2 box-border focus:border-gray-400 focus:ring-1 ring-gray-400">
+                      <p className="flex-center box-border h-12 w-full border-2 bg-amber-50 pl-2 ring-gray-400 outline-none focus:border-gray-400 focus:ring-1">
                         ৳
                         {!formInfo.isdiscount &&
                           products
                             .reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             )
                             .toFixed(2)}
                         {formInfo.isdiscount &&
@@ -684,7 +683,7 @@ const MPage = () => {
                             products.reduce(
                               (sum, p) =>
                                 sum + Number(p.quantity) * Number(p.amount),
-                              0
+                              0,
                             ) *
                             ((100 - formInfo.discount) / 100)
                           ).toFixed(2)}
@@ -692,7 +691,7 @@ const MPage = () => {
                     </td>
                     <td className="font-bold text-blue-700">
                       <input
-                        className="accent-orange-400 cursor-pointer"
+                        className="cursor-pointer accent-orange-400"
                         checked={formInfo.paid || false}
                         onChange={(e) =>
                           setFormInfo({ ...formInfo, paid: e.target.checked })
@@ -709,27 +708,27 @@ const MPage = () => {
                 </tfoot>
               </table>
             </div>
-            <button className="sec-btn w-fit px-10 m-auto" type="submit">
+            <button className="sec-btn m-auto w-fit px-10" type="submit">
               Save
             </button>
           </form>
         </div>
         <div
           id="invoices"
-          className="flex flex-col container py-8  mx-auto gap-4 p-3 bg-gray-200 rounded-2xl"
+          className="container mx-auto flex flex-col gap-4 rounded-2xl bg-gray-200 p-3 py-8"
         >
           {/* This is Your Invoices Line */}
-          <h2 className="text-3xl font-bold flex-center">Your Invoices</h2>
+          <h2 className="flex-center text-3xl font-bold">Your Invoices</h2>
           {invoices ? (
             invoices.map((item, index) => {
               return (
                 <div
                   key={index}
                   id={item.invoiceId}
-                  className="w-full bg-sec-white p-2 md:p-3 rounded-lg flex flex-col gap-3 ring-2 ring-gray-800"
+                  className="bg-sec-white flex w-full flex-col gap-3 rounded-lg p-2 ring-2 ring-gray-800 md:p-3"
                 >
                   <div className="flex-between flex-wrap">
-                    <span className=" bg-purple-200 font-bold text-lg rounded-lg p-3 w-fit">
+                    <span className="w-fit rounded-lg bg-purple-200 p-3 text-lg font-bold">
                       Invoice #{(index + 1).toString().padStart(4, "0")}
                     </span>
                     <span className="flex-center flex-wrap gap-3 text-3xl">
@@ -744,33 +743,33 @@ const MPage = () => {
                       <button
                         type="button"
                         onClick={() => handleDownload(item._id, item)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
+                        className="flex-center box-border rounded-full bg-gray-300 p-3 transition-all hover:bg-gray-100 active:bg-gray-400"
                       >
                         <GrDocumentDownload />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleEditInvoice(item._id, item)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
+                        className="flex-center box-border rounded-full bg-gray-300 p-3 transition-all hover:bg-gray-100 active:bg-gray-400"
                       >
                         <RiEdit2Line />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDeleteInvoice(item.invoiceId)}
-                        className="flex-center p-3 box-border rounded-full bg-gray-300 hover:bg-gray-100  active:bg-gray-400 transition-all"
+                        className="flex-center box-border rounded-full bg-gray-300 p-3 transition-all hover:bg-gray-100 active:bg-gray-400"
                       >
                         <RiDeleteBin6Fill />
                       </button>
                     </span>
                   </div>
-                  <div className="head w-full text-lg box-border font-semibold  flex-wrap flex-between bg-gray-200 p-1 rounded-lg gap-2 overflow-hidden overflow-ellipsis text-nowrap">
+                  <div className="head flex-between box-border w-full flex-wrap gap-2 overflow-hidden rounded-lg bg-gray-200 p-1 text-lg font-semibold text-nowrap overflow-ellipsis">
                     <span>{item.full_name}</span>
                     <span>{item.email}</span>
                     <span>{item.phone}</span>
                     <span>{item.address}</span>
                   </div>
-                  <div className="w-full box-border bg-gray-200 rounded-lg p-2 flex items-center flex-wrap gap-2 overflow-hidden overflow-ellipsis text-nowrap">
+                  <div className="box-border flex w-full flex-wrap items-center gap-2 overflow-hidden rounded-lg bg-gray-200 p-2 text-nowrap overflow-ellipsis">
                     <span className="font-semibold">
                       Product Item : {item.products.length}
                     </span>
@@ -778,7 +777,7 @@ const MPage = () => {
                       item.products.map((e, i) => {
                         return (
                           <span
-                            className="bg-gray-100 px-2 py-1 rounded-md"
+                            className="rounded-md bg-gray-100 px-2 py-1"
                             key={i}
                           >
                             {e.product}(Q.{e.quantity} ৳.{e.amount})
@@ -789,30 +788,30 @@ const MPage = () => {
                   <div className="flex-between flex-wrap gap-3">
                     <div className="flex-center flex-wrap gap-3">
                       {item.isdiscount && (
-                        <span className="bg-gray-100 px-2 py-1 rounded-md font-bold">
+                        <span className="rounded-md bg-gray-100 px-2 py-1 font-bold">
                           {item.discount}% Off
                         </span>
                       )}
                       {item.paid ? (
-                        <span className="bg-blue-300 px-2 py-1 rounded-md font-bold">
+                        <span className="rounded-md bg-blue-300 px-2 py-1 font-bold">
                           Paid
                         </span>
                       ) : (
-                        <span className="bg-red-500 px-2 py-1 rounded-md font-bold">
+                        <span className="rounded-md bg-red-500 px-2 py-1 font-bold">
                           Due
                         </span>
                       )}
                       <span className="flex-center flex-wrap gap-1">
-                        <span className="bg-purple-100 px-2 py-1 rounded-md font-bold text-[12px]">
+                        <span className="rounded-md bg-purple-100 px-2 py-1 text-[12px] font-bold">
                           Date : {item.date}
                         </span>
-                        <span className="bg-purple-100 px-2 py-1 rounded-md font-bold text-[12px]">
+                        <span className="rounded-md bg-purple-100 px-2 py-1 text-[12px] font-bold">
                           Created At :
                           {new Date(item.createdAt).toLocaleTimeString()}{" "}
                           {new Date(item.createdAt).toLocaleDateString()}
                         </span>
                         {item.updatedAt && (
-                          <span className="bg-purple-100 px-2 py-1 rounded-md font-bold text-[12px]">
+                          <span className="rounded-md bg-purple-100 px-2 py-1 text-[12px] font-bold">
                             Last Updated :{" "}
                             {new Date(item.updatedAt).toLocaleTimeString()}{" "}
                             {new Date(item.updatedAt).toLocaleDateString()}
@@ -825,15 +824,15 @@ const MPage = () => {
                       <span>Total Price : </span>
                       <span
                         className={`${
-                          item.paid ? "bg-gray-100 " : "bg-red-500 text-white"
-                        } px-2 py-1 rounded-md ring-2 ring-gray-700`}
+                          item.paid ? "bg-gray-100" : "bg-red-500 text-white"
+                        } rounded-md px-2 py-1 ring-2 ring-gray-700`}
                       >
                         {item.isdiscount
                           ? (
                               item.products.reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               ) *
                               ((100 - item.discount) / 100)
                             ).toFixed(2)
@@ -841,7 +840,7 @@ const MPage = () => {
                               .reduce(
                                 (sum, p) =>
                                   sum + Number(p.quantity) * Number(p.amount),
-                                0
+                                0,
                               )
                               .toFixed(2)}
                         /=
@@ -852,7 +851,7 @@ const MPage = () => {
               );
             })
           ) : (
-            <div className="text-2xl flex-center font-bold text-red-400 px-2 py-16 bg-gray-300 rounded-lg">
+            <div className="flex-center rounded-lg bg-gray-300 px-2 py-16 text-2xl font-bold text-red-400">
               No Items Found
             </div>
           )}
